@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.List;
 
 
 @Getter
@@ -25,21 +26,18 @@ public class Album {
     @Column(name = "price")
     private double price;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "albums_orders",
-            joinColumns = @JoinColumn(name = "album_id"),
-            inverseJoinColumns = @JoinColumn(name = "order_id"))
-    HashSet<Order> orders;
+    @ManyToMany(mappedBy = "albums")
+    List<Order> orders;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "albums_artists",
             joinColumns = @JoinColumn(name = "album_id"),
             inverseJoinColumns = @JoinColumn(name = "artist_id"))
-    HashSet<Artist> artists;
+    List<Artist> artists;
 
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "album_id")
-    HashSet<Track> tracks;
+    List<Track> tracks;
 
     public Album() {
     }

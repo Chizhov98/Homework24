@@ -10,10 +10,10 @@
         <property name="connection.password">root</property>
 
         <!-- JDBC connection pool settings ... using built-in test pool -->
-        <property name="connection.pool_size">1</property>
+        <property name="connection.pool_size">5</property>
 
         <!-- Select our SQL dialect -->
-        <property name="dialect">org.hibernate.dialect.MySQL57Dialect</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</property>
 
         <!-- Echo the SQL to stdout -->
         <property name="show_sql">true</property>
@@ -31,10 +31,10 @@
         <property name="hibernate.dbcp.minIdle">5</property>
         <property name="hibernate.dbcp.maxWaitMillis">2</property>
 
+        <mapping class="Entity.Order"/>
         <mapping class="Entity.Album"/>
         <mapping class="Entity.Artist"/>
         <mapping class="Entity.Customer"/>
-        <mapping class="Entity.Order"/>
         <mapping class="Entity.Track"/>
     </session-factory>
 </hibernate-configuration>

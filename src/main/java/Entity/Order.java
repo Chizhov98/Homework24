@@ -20,7 +20,10 @@ public class Order {
     @JoinColumn(name = "customer_id", insertable = false, updatable = false)
     private Customer customers;
 
-    @ManyToMany(mappedBy = "orders")
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "albums_orders",
+            joinColumns = @JoinColumn(name = "album_id"),
+            inverseJoinColumns = @JoinColumn(name = "order_id"))
     private List<Album> albums;
 
     public Order() {

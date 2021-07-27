@@ -5,6 +5,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.List;
 
 
 @Getter
@@ -28,7 +29,7 @@ public class Customer {
     @JoinTable(name="customers_orders",
             joinColumns = @JoinColumn(name = "customers_id"),
             inverseJoinColumns = @JoinColumn(name = "order_id"))
-    HashSet<Order> orders;
+    List<Order> orders;
 
     public Customer() {
     }

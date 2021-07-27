@@ -25,8 +25,8 @@ public class FirstInit {
         Artist[] artists = new Artist[5];
         for (int i = 0; i < artists.length; i++) {
             artists[i] = new Artist();
-            artists[i].setTracks(new HashSet<>());
-            artists[i].setAlbums(new HashSet<>());
+            artists[i].setTracks(new ArrayList<>());
+            artists[i].setAlbums(new ArrayList<>());
             artists[i].setId(i + 1);
         }
         artists[0].setFirstName("Klavdia");
@@ -63,7 +63,7 @@ public class FirstInit {
         Customer[] customers = new Customer[5];
         for (int i = 0; i < customers.length; i++) {
             customers[i] = new Customer();
-            customers[i].setOrders(new HashSet<>());
+            customers[i].setOrders(new ArrayList<>());
             customers[i].setId(i + 1);
         }
         customers[0].setFirstName("Artem");
@@ -114,8 +114,8 @@ public class FirstInit {
             album.setName("some_name_" + i);
             album.setPrice(random.nextDouble() + 50.5);
 
-            album.setTracks(new HashSet<>());
-            album.setArtists(new HashSet<>());
+            album.setTracks(new ArrayList<>());
+            album.setArtists(new ArrayList<>());
             albums.add(album);
         }
         return albums;

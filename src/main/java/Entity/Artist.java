@@ -5,7 +5,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.HashSet;
-
+import java.util.List;
 
 
 @Entity
@@ -26,10 +26,10 @@ public class Artist {
 
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "album_id")
-    HashSet<Track> tracks;
+    List<Track> tracks;
 
     @ManyToMany(mappedBy = "artists")
-    private HashSet<Album> albums;
+    private List<Album> albums;
 
     public Artist() {
     }
