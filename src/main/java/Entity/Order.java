@@ -1,5 +1,6 @@
 package Entity;
 
+import com.sun.istack.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,14 +17,15 @@ public class Order {
     @Column(name = "id")
     private int id;
 
-    @ManyToOne
-    @JoinColumn(name = "customer_id", insertable = false, updatable = false)
-    private Customer customers;
+    @NotNull
+    @Column(name = "customer_id")
+    private int customerId;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "albums_orders",
-            joinColumns = @JoinColumn(name = "album_id"),
-            inverseJoinColumns = @JoinColumn(name = "order_id"))
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "orders_albums",
+            joinColumns = @JoinColumn(name = "orders_id"),
+            inverseJoinColumns = @JoinColumn(name = "albums_id")
+    )
     private List<Album> albums;
 
     public Order() {

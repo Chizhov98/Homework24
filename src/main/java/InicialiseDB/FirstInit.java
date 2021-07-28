@@ -5,7 +5,7 @@ import Entity.*;
 import Utils.Config;
 
 import java.util.ArrayList;
-import java.util.HashSet;
+
 import java.util.List;
 import java.util.Random;
 
@@ -14,20 +14,37 @@ public class FirstInit {
     private Random random = new Random();
 
     public List<Order> initAllDb(int count) {
+        List<Track> tracks = initTracks(1000);
+        List<Album> albums = createAlbums(50, tracks);
         Artist[] artists = createArtists();
+        createArtistAlbumLink(albums, artists);
         Customer[] customers = createCustomers();
-        List<Album> albums = createAlbums(100);
-        initTracks(15000, artists, albums);
+
+
         return initOrders(customers, albums, count);
+    }
+
+    private void createArtistAlbumLink(List<Album> albums, Artist[] artists) {
+
+        for (int i = 0, temp; i < albums.size(); i++) {
+            temp = random.nextInt(artists.length);
+            albums.get(i).getArtists().add(artists[temp]);
+            artists[temp].getAlbums().add(albums.get(i));
+        }
+        for (int i = 0; i < albums.size(); i++) {
+            dao.update(albums.get(i));
+        }
+        for (int i = 0; i < artists.length; i++) {
+            dao.update(artists[i]);
+        }
+
     }
 
     private Artist[] createArtists() {
         Artist[] artists = new Artist[5];
         for (int i = 0; i < artists.length; i++) {
             artists[i] = new Artist();
-            artists[i].setTracks(new ArrayList<>());
             artists[i].setAlbums(new ArrayList<>());
-            artists[i].setId(i + 1);
         }
         artists[0].setFirstName("Klavdia");
         artists[0].setLastName("Koka");
@@ -39,6 +56,9 @@ public class FirstInit {
         artists[3].setLastName("Berry");
         artists[4].setFirstName("James");
         artists[4].setLastName("Brown");
+        for (int i = 0; i < artists.length; i++) {
+            dao.create(artists[i]);
+        }
         return artists;
     }
 
@@ -47,13 +67,17 @@ public class FirstInit {
         Order order;
         for (int i = 0; i < count; i++) {
             order = new Order();
-            order.setAlbums(new ArrayList<Album>());
-            order.getAlbums().add(albums.
-                    get(random.nextInt(albums.size())));
-            order.setCustomers(customers
-                    [random.nextInt(customers.length)]);
-            order.getCustomers().getOrders().add(order);
+            order.setAlbums(new ArrayList<>());
+            for (int j = 0; j < random.nextInt(5); j++) {
+                order.getAlbums().add(albums.
+                        get(random.nextInt(albums.size())));
+            }
+            order.setCustomerId(customers
+                    [random.nextInt(customers.length)].getId());
+            customers[order.getCustomerId() - 1].getOrders().add(order);
             orders.add(order);
+            dao.create(order);
+            dao.update(customers[order.getCustomerId()-1]);
         }
         return orders;
     }
@@ -81,30 +105,27 @@ public class FirstInit {
         customers[4].setFirstName("Elisabet");
         customers[4].setLastName("Turner");
 
+        for (int i = 0; i < customers.length; i++) {
+            dao.create(customers[i]);
+        }
+
         return customers;
     }
 
-    private void initTracks(int count, Artist[] artists, List<Album> albums) {
-        Track[] tracks = new Track[count];
-        for (int i = 0; i < tracks.length; i++) {
-            tracks[i] = new Track();
-            tracks[i].setId(i + 1);
-            tracks[i].setArtist(artists
-                    [random.nextInt(artists.length)]);
-            tracks[i].getArtist().getTracks().
-                    add(tracks[i]);
-            tracks[i].setName("track_" + i + 1);
-            tracks[i].setAlbum(albums.get(
-                    random.nextInt(albums.size())));
-            tracks[i].getAlbum().getTracks()
-                    .add(tracks[i]);
-            tracks[i].getAlbum().getArtists()
-                    .add(tracks[i].getArtist());
+    private List<Track> initTracks(int count) {
+        List<Track> tracks = new ArrayList<>();
+        Track track;
+        for (int i = 0; i < count; i++) {
+            track = new Track();
+            track.setId(i + 1);
+            track.setName("Track" + i);
+            dao.create(track);
+            tracks.add(track);
         }
-
+        return tracks;
     }
 
-    private List<Album> createAlbums(int count) {
+    private List<Album> createAlbums(int count, List<Track> tracks) {
         ArrayList<Album> albums = new ArrayList<>();
         Album album;
 
@@ -112,11 +133,18 @@ public class FirstInit {
             album = new Album();
             album.setId(i);
             album.setName("some_name_" + i);
-            album.setPrice(random.nextDouble() + 50.5);
+            album.setPrice(random.nextDouble() * 100);
 
             album.setTracks(new ArrayList<>());
+            for (int j = 0, temp; j < random.nextInt(6); j++)
+                if (tracks.size() > 0) {
+                    temp = random.nextInt(tracks.size());
+                    album.getTracks().add(tracks.get(temp));
+                    tracks.remove(temp);
+                }
             album.setArtists(new ArrayList<>());
             albums.add(album);
+            dao.create(album);
         }
         return albums;
     }

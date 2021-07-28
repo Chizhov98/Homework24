@@ -9,12 +9,7 @@ public class Start {
 
     private static DefaultDao dao = Config.dao;
     public static void main(String[] args) {
-        List<Order> orders = new FirstInit().initAllDb(200000);
-
-        for (int i = 0; i < orders.size() ; i++) {
-            dao.create(orders.get(i));
-        }
-        System.out.println();
+        List<Order> orders = new FirstInit().initAllDb(20000000);
     }
 
 }

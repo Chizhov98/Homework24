@@ -25,10 +25,7 @@ public class Customer {
     @Column(name = "last_name")
     private String lastName;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinTable(name="customers_orders",
-            joinColumns = @JoinColumn(name = "customers_id"),
-            inverseJoinColumns = @JoinColumn(name = "order_id"))
+    @OneToMany(cascade = CascadeType.ALL)
     List<Order> orders;
 
     public Customer() {

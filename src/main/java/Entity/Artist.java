@@ -15,6 +15,7 @@ import java.util.List;
 public class Artist {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private int id;
 
     @Column(name = "first_name")
@@ -22,11 +23,6 @@ public class Artist {
 
     @Column(name = "last_name")
     private String lastName;
-
-
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "album_id")
-    List<Track> tracks;
 
     @ManyToMany(mappedBy = "artists")
     private List<Album> albums;

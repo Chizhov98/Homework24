@@ -26,17 +26,17 @@ public class Album {
     @Column(name = "price")
     private double price;
 
-    @ManyToMany(mappedBy = "albums")
+    @ManyToMany(mappedBy = "albums", cascade = CascadeType.ALL)
     List<Order> orders;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "albums_artists",
-            joinColumns = @JoinColumn(name = "album_id"),
-            inverseJoinColumns = @JoinColumn(name = "artist_id"))
+            joinColumns = @JoinColumn(name = "albums_id"),
+            inverseJoinColumns = @JoinColumn(name = "artists_id")
+    )
     List<Artist> artists;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "album_id")
+    @OneToMany(cascade = CascadeType.ALL)
     List<Track> tracks;
 
     public Album() {

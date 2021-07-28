@@ -32,9 +32,10 @@
         <property name="hibernate.dbcp.maxWaitMillis">2</property>
 
         <mapping class="Entity.Order"/>
+        <mapping class="Entity.Track"/>
         <mapping class="Entity.Album"/>
         <mapping class="Entity.Artist"/>
         <mapping class="Entity.Customer"/>
-        <mapping class="Entity.Track"/>
+
     </session-factory>
 </hibernate-configuration>

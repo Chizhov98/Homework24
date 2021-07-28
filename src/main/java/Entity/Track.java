@@ -19,13 +19,6 @@ public class Track {
     @Column(name = "name")
     private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "album_id", insertable = false, updatable = false)
-    private Album album;
-
-    @ManyToOne
-    @JoinColumn(name = "artis_id", insertable = false, updatable = false)
-    private Artist artist;
 
     public Track() {
     }
