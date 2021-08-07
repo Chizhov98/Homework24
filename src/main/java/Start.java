@@ -9,7 +9,7 @@ public class Start {
 
     private static DefaultDao dao = Config.dao;
     public static void main(String[] args) {
-        List<Order> orders = new FirstInit().initAllDb(20000000);
+        List<Order> orders = new FirstInit().initAllDb(100);
     }
 
 }
