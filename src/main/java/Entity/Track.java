@@ -22,4 +22,12 @@ public class Track {
 
     public Track() {
     }
+
+    @Override
+    public String toString() {
+        return "Track{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }

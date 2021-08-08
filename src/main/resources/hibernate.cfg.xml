@@ -5,9 +5,11 @@
     <session-factory>
         <!-- JDBC Database connection settings -->
         <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
-        <property name="connection.url">jdbc:mysql://localhost:3306/advanced?serverTimezone=UTC</property>
-        <property name="connection.username">root</property>
-        <property name="connection.password">root</property>
+        <property name="connection.url">
+            postgres://ywcdfaojrjqqpq:475403ca4d13a6b7bca23448ae96c8d0c6807368c32db03b31c49614263ba3df@ec2-34-197-105-186.compute-1.amazonaws.com:5432/ddcru82ogn27kp
+        </property>
+        <property name="connection.username">ywcdfaojrjqqpq</property>
+        <property name="connection.password">475403ca4d13a6b7bca23448ae96c8d0c6807368c32db03b31c49614263ba3df</property>
 
         <!-- JDBC connection pool settings ... using built-in test pool -->
         <property name="connection.pool_size">5</property>

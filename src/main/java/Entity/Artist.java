@@ -30,4 +30,13 @@ public class Artist {
     public Artist() {
     }
 
+    @Override
+    public String toString() {
+        return "Artist{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", albums=" + albums +
+                '}';
+    }
 }

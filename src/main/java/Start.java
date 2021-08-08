@@ -7,7 +7,7 @@ import java.util.List;
 
 public class Start {
 
-    private static DefaultDao dao = Config.dao;
+    private static DefaultDao dao = Config.getDao();
     public static void main(String[] args) {
         List<Order> orders = new FirstInit().initAllDb(100);
     }
