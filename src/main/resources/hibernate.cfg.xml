@@ -4,10 +4,8 @@
 <hibernate-configuration>
     <session-factory>
         <!-- JDBC Database connection settings -->
-        <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
-        <property name="connection.url">
-            postgres://ywcdfaojrjqqpq:475403ca4d13a6b7bca23448ae96c8d0c6807368c32db03b31c49614263ba3df@ec2-34-197-105-186.compute-1.amazonaws.com:5432/ddcru82ogn27kp
-        </property>
+        <property name="connection.driver_class">org.postgresql.Driver</property>
+        <property name="hibernate.connection.url">jdbc:postgresql://ec2-34-197-105-186.compute-1.amazonaws.com:5432/ddcru82ogn27kp</property>
         <property name="connection.username">ywcdfaojrjqqpq</property>
         <property name="connection.password">475403ca4d13a6b7bca23448ae96c8d0c6807368c32db03b31c49614263ba3df</property>
 
@@ -15,7 +13,7 @@
         <property name="connection.pool_size">5</property>
 
         <!-- Select our SQL dialect -->
-        <property name="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQL94Dialect</property>
 
         <!-- Echo the SQL to stdout -->
         <property name="show_sql">true</property>

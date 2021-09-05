@@ -9,7 +9,9 @@ public class Start {
 
     private static DefaultDao dao = Config.getDao();
     public static void main(String[] args) {
-        List<Order> orders = new FirstInit().initAllDb(100);
+        List<Order> orders = new FirstInit().initAllDb(5);
+        Config.getNavigator().mainMenu();
     }
+
 
 }

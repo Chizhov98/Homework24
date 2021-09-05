@@ -12,10 +12,12 @@ import java.util.Random;
 public class FirstInit {
     private DefaultDao dao = Config.getDao();
     private Random random = new Random();
+    private int tracksCount = 30;
+    private int albumsTrack = 10;
 
     public List<Order> initAllDb(int count) {
-        List<Track> tracks = initTracks(1000);
-        List<Album> albums = createAlbums(50, tracks);
+        List<Track> tracks = initTracks(tracksCount);
+        List<Album> albums = createAlbums(albumsTrack, tracks);
         Artist[] artists = createArtists();
         createArtistAlbumLink(albums, artists);
         Customer[] customers = createCustomers();

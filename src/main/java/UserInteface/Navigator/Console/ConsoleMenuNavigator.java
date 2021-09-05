@@ -84,22 +84,24 @@ public class ConsoleMenuNavigator implements MenuNavigator {
         int id = scanInt();
         switch (choseObj) {
             case 1:
-               Album album =  Config.getDao().read(new Album(), id);
-               Config.getDao().update(updateAlbum(album));
+                Album album = Config.getDao().read(new Album(), id);
+                Config.getDao().update(updateAlbum(album));
                 break;
             case 2:
-
+                Artist artist = Config.getDao().read(new Artist(), id);
+                Config.getDao().update(updateArtist(artist));
                 break;
             case 3:
-
+                Customer customer = Config.getDao().read(new Customer(), id);
+                Config.getDao().update(updateCustomer(customer));
                 break;
-
             case 4:
-
+                Order order = Config.getDao().read(new Order(), id);
+                Config.getDao().update(updateOrder(order));
                 break;
-
             case 5:
-
+                Track track = Config.getDao().read(new Track(), id);
+                Config.getDao().update(updateTrack(track));
                 break;
             case 0:
                 mainMenu();
@@ -241,20 +243,99 @@ public class ConsoleMenuNavigator implements MenuNavigator {
             }
             case 3 -> {
                 menu.enterNewValue();
-                album.getOrders().add(Config.getDao().read(new Order(),scanInt()));
+                album.getOrders().add(Config.getDao().read(new Order(), scanInt()));
             }
             case 4 -> {
                 menu.enterNewValue();
-                album.getArtists().add(Config.getDao().read(new Artist(),scanInt()));
+                album.getArtists().add(Config.getDao().read(new Artist(), scanInt()));
             }
-            case 5 -> {menu.enterNewValue();
-                album.getTracks().add(Config.getDao().read(new Track(),scanInt()));}
+            case 5 -> {
+                menu.enterNewValue();
+                album.getTracks().add(Config.getDao().read(new Track(), scanInt()));
+            }
             case 0 -> {
                 return album;
             }
             default -> System.out.println("Incorrect chose, try again");
         }
         return updateAlbum(album);
+    }
+
+    private Artist updateArtist(Artist artist) {
+        menu.updateArtist();
+        switch (scanInt()) {
+            case 1 -> {
+                menu.enterNewValue();
+                artist.setFirstName(scanLine());
+            }
+            case 2 -> {
+                menu.enterNewValue();
+                artist.setLastName(scanLine());
+            }
+            case 0 -> {
+                return artist;
+            }
+            default -> System.out.println("Incorrect chose, try again");
+        }
+        return updateArtist(artist);
+    }
+
+    private Customer updateCustomer(Customer customer) {
+        menu.updateArtist();
+        switch (scanInt()) {
+            case 1 -> {
+                menu.enterNewValue();
+                customer.setFirstName(scanLine());
+            }
+            case 2 -> {
+                menu.enterNewValue();
+                customer.setLastName(scanLine());
+            }
+            case 3 -> {
+                menu.enterId();
+                int id = scanInt();
+                customer.getOrders().add(Config.getDao().read(new Order(), id));
+            }
+            case 0 -> {
+                return customer;
+            }
+            default -> System.out.println("Incorrect chose, try again");
+        }
+        return updateCustomer(customer);
+    }
+
+    private Order updateOrder(Order order) {
+        menu.updateArtist();
+        switch (scanInt()) {
+            case 1 -> {
+                menu.enterNewValue();
+                order.setCustomerId(scanInt());
+            }
+            case 2 -> {
+                menu.enterNewValue();
+                order.getAlbums().add(Config.getDao().read(new Album(), scanInt()));
+            }
+            case 0 -> {
+                return order;
+            }
+            default -> System.out.println("Incorrect chose, try again");
+        }
+        return updateOrder(order);
+    }
+
+    private Track updateTrack(Track track) {
+        menu.updateArtist();
+        switch (scanInt()) {
+            case 1 -> {
+                menu.enterNewValue();
+                track.setName(scanLine());
+            }
+            case 0 -> {
+                return track;
+            }
+            default -> System.out.println("Incorrect chose, try again");
+        }
+        return updateTrack(track);
     }
 }
 
